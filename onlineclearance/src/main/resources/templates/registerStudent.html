@@ -1,0 +1,436 @@
+<!-- <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            height: 109px;
+            background: #bcd7f836;
+        }
+
+        .header h1 {
+            height: 52px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 36px;
+            line-height: 42px;
+            margin: auto;
+            text-align: center;
+
+            color: #59b2ee;
+        }
+
+        .form h1 {
+            margin: 1em;
+
+        }
+
+        .form {
+            width: 60%;
+            box-shadow: 0px 0px 4px grey;
+            margin: 2em auto;
+        }
+    </style>
+
+    <script>
+
+        // Function to check Whether both passwords
+        // is same or not.
+        function checkPassword(form) {
+            password = form.password.value;
+            confirm = form.confirm.value;
+
+            // If password not entered
+            if (password == '') {
+                alert("Please enter Password");
+                return false;
+            }
+            // If confirm password not entered
+            else if (confirm == '') {
+                alert("Please enter confirm password");
+                return false;
+            }
+            // If Not same return False.    
+            else if (password != confirm) {
+                alert("\nPassword did not match: Please try again...")
+                return false;
+            }
+            // If same return True.
+            else {
+                return true;
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <div class="row">
+                <img th:src="@{/images/AAU.jpg}" class="img-fluid" alt="...">
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="row header">
+                <h1> AAU/AAiT Online Clearance System</h1>
+            </div>
+
+            <div class="row form">
+                <h1> You can add new student here.</h1>
+                <form class="w-80 " method="post" th:action="@{/saveStudent}" th:object="${user}"
+                    onSubmit="return checkPassword(this)">
+                    <div class="row g-3 align-items-center">
+
+                        <div class="col-auto">
+                            <label for="firstName" class="col-form-label">FirstName</label>
+                            <input type="text"
+                                th:class="|form-control form-controller ${#fields.hasErrors('firstName')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{firstName}" placeholder="&#xf007;" style="font-family:Arial, FontAwesome">
+
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}"
+                                th:errors="*{firstName}"> </div>
+                        </div>
+                        <div class="col-auto">
+                            <label for="lastName" class="col-form-label">LastName</label>
+                            <input type="text"
+                                th:class="|form-controller form-control ${#fields.hasErrors('lastName')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{lastName}" placeholder="&#xf007;" style="font-family:Arial, FontAwesome">
+
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}"
+                                th:errors="*{lastName}"> </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="email" class="col-form-label">Email</label>
+                            <input
+                                th:class="|form-controller form-control ${#fields.hasErrors('email')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{email}" placeholder="&#xf0e0;" style="font-family: Arial, FontAwesome;" />
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="username" class="col-form-label">Username</label>
+                            <input
+                                th:class="|form-controller form-control ${#fields.hasErrors('username')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{username}" placeholder="&#xf2c2;"
+                                style="font-family: Arial, FontAwesome;" />
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}"
+                                th:errors="*{username}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="year" class="col-form-label">Year</label>
+                            <input type="text"
+                                th:class="|form-controller form-control ${#fields.hasErrors('year')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{year}" placeholder="year" />
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="department" class="col-form-label">Department</label>
+                            <input type="text"
+                                th:class="|form-controller form-control ${#fields.hasErrors('department')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{department}" placeholder="Department" />
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('department')}"
+                                th:errors="*{department}"></div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="Password" class="col-form-label">Password</label>
+                            <input type="password" id="Password" name="password" th:field="*{password}">
+                        </div>
+
+                        <div class="col-auto">
+                            <label for="confirm" class="col-form-label">Confirm Password</label>
+                            <input type="password" id="confirm" name="confirm">
+                        </div>
+                    </div>
+
+                    <div class="row  p-3 mb-2 pb-0" style="width: 25%;">
+                        <button type="submit" id="signup-submit" class="btn btn-primary">
+                            Register
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html> -->
+
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            height: 109px;
+            background: #bcd7f836;
+        }
+
+        .header h1 {
+            height: 52px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 36px;
+            line-height: 42px;
+            margin: auto;
+            text-align: center;
+
+            color: #59b2ee;
+        }
+
+        .form h1 {
+            margin: 1em;
+
+        }
+
+        .form {
+            width: 60%;
+            box-shadow: 0px 0px 4px grey;
+            margin: 2em auto;
+        }
+    </style>
+
+<script>
+
+    // Function to check Whether both passwords
+    // is same or not.
+    function checkPassword(form) {
+        password = form.password.value;
+        confirm = form.confirm.value;
+
+        // If password not entered
+        if (password == '') {
+            alert("Please enter Password");
+            return false;
+        }
+        // If confirm password not entered
+        else if (confirm == '') {
+            alert("Please enter confirm password");
+            return false;
+        }
+        // If Not same return False.    
+        else if (password != confirm) {
+            alert("\nPassword did not match: Please try again...")
+            return false;
+        }
+        // If same return True.
+        else {
+            return true;
+        }
+    }
+</script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <div class="row">
+                <img th:src="@{/images/AAU.jpg}" class="img-fluid" alt="...">
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="row header">
+                <h1> AAU/AAiT Online Clearance System</h1>
+            </div>
+
+            <div class="row form">
+                <h1> You can add new student here.</h1>
+                <form class="w-80 " method="post" th:action="@{/saveStudent}" th:object="${user}" autocomplete="off" onSubmit = "return checkPassword(this)">
+                    <div class="row g-3 align-items-center">
+
+                        <div class="col-auto">
+                            <label for="firstName" class="col-form-label">FirstName</label>
+                            <input type="text"
+                                th:class="|form-control form-controller ${#fields.hasErrors('firstName')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{firstName}" placeholder="&#xf007;" style="font-family:Arial, FontAwesome">
+
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}"
+                                th:errors="*{firstName}"> </div>
+                        </div>
+                        <div class="col-auto">
+                            <label for="lastName" class="col-form-label">LastName</label>
+                            <input type="text"
+                                th:class="|form-controller form-control ${#fields.hasErrors('lastName')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{lastName}" placeholder="&#xf007;" style="font-family:Arial, FontAwesome">
+
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}"
+                                th:errors="*{lastName}"> </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="email" class="col-form-label"><b>Email :</b> </label>
+                            <input
+                                th:class="|form-controller form-control ${#fields.hasErrors('email')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{email}" placeholder="&#xf0e0;" style="font-family: Arial, FontAwesome;" />
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="username" class="col-form-label"><b>Username :</b> </label>
+                            <input
+                                th:class="|form-controller form-control ${#fields.hasErrors('username')? 'is-invalid' : 'is-valid'}|"
+                                th:field="*{username}" placeholder="&#xf2c2;"
+                                style="font-family: Arial, FontAwesome;" />
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}"
+                                th:errors="*{username}">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="year" class="col-form-label"><b>year :</b> </label>
+                            <select class="" name="year" id="year"
+                                th:class="|form-controller form-control form-select |"
+                                style="width:200px !important ;border-color: green;">
+                                <option value="1" selected="selected">fresh
+                                </option>
+                                <option value="1">1<sup>st</sup> year
+                                </option>
+                                <option value="2">2<sup>nd</sup> year
+                                </option>
+                                <option value="3">3<sup>rd</sup> year
+                                </option>
+                                <option value="4">4<sup>th</sup> year
+                                </option>
+                                <option value="5">5<sup>th</sup> year
+                                </option>
+                                ...
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="department" class="col-form-label"><b>Department :</b> </label>
+                            <select class="" name="department" id="department"
+                                th:class="|form-controller form-control form-select |"
+                                style="width:fit-content !important ;border-color: green;">
+
+                                <option value="Software and IT engineering">Software and IT engineering
+                                </option>
+                                <option value="Electrical Engineering"> Electrical engineering
+                                </option>
+                                <option value="Biomedical engineering">Biomedical engineering
+                                </option>
+                                <option value="civil engineering">civil engineering
+                                </option>
+                                <option value="chemical engineering">chemical engineering
+                                </option>
+                                <option value="mechanical engineering">mechanical engineering
+                                </option>
+                                <option value="chemical engineering">chemical engineering
+                                </option>
+                                ...
+                            </select>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row g-3 mt-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="password" class="col-form-label">Password</label>
+                            <input type="password"
+                                th:class="|form-controller form-control ${#fields.hasErrors('password')? 'is-invalid' : 'is-valid'}|"
+                                name="password" id="password" placeholder="&#xf023;"
+                                style="font-family: Arial, FontAwesome;" />
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}"
+                                th:errors="*{password}">
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-auto">
+                            <label for="confirm" class="col-form-label">Confirm Password</label>
+                            <input type="password"
+                                th:class="|form-controller form-control ${#fields.hasErrors('password')? 'is-invalid' : 'is-valid'}|"
+                                id="confirm" name="confirm" placeholder="&#xf023;"
+                                style="font-family: Arial, FontAwesome;" />
+
+                        </div>
+                    </div>
+
+                    <div class="row  p-3 mb-2 pb-0" style="width: 25%;">
+                        <button type="submit" id="signup-submit" class="btn btn-primary " onclick="confirmation()">
+                            Register
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

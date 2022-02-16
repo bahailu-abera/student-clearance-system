@@ -1,0 +1,113 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+    <title>cafeteria</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            height: 109px;
+            background: #bcd7f836;
+        }
+
+        .header h1 {
+            height: 52px;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 36px;
+            line-height: 42px;
+            margin: auto;
+            text-align: center;
+
+            color: #59b2ee;
+        }
+
+        .table-responsive {
+            margin-top: 2em;
+        }
+
+        .logout {
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <div class="row">
+                <img th:src="@{/images/AAU.jpg}" class="img-fluid" alt="...">
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="row header">
+                <h1> AAU/AAiT Online Clearance System</h1>
+            </div>
+
+            <div class="row buttons">
+                <div class="col">
+                    <form class="row ps-3 pe-3">
+                        <a style="margin-top: 1em;" th:href="@{/admin/addStudent}"
+                            class="btn btn-primary col-auto">Add Student</a>
+                    </form>
+                </div>
+                <div class="col logout">
+
+                    <!-- <form action="/logout" method="post">
+                        <a style="margin-top: 1em;" th:href="@{/adminDashBoard/addUsers}"
+                            class="btn btn-primary col-auto">Logout</a>
+                    </form> -->
+
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+
+                        <tr>
+                            <td>FULL NAME</td>
+                            <td>Username</td>
+                            <td>DEPARTMENT</td>
+                            <td>YEAR</td>
+                            <td>EMAIL</td>
+                            <td>CLEARANCE STATUS</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr th:each="user: ${users}">
+                            <td th:text="${#strings.capitalize(user.firstName) + ' ' + #strings.capitalize(user.lastName)}"></td>
+                            <td th:text="${#strings.toUpperCase(user.username)}"></td>
+                            <td th:text="${user.department}"> department</td>
+                            <td th:text="${user.year}"> year</td>
+                            <td th:text="${user.email}">email</td>
+                            <td th:if="${user.status}"><span style="color: green;">Cleared</span></td>
+                            <td th:unless="${user.status}"><span style="color: red;">Not Cleared</span></td>
+                            <td><a th:href="@{/edit/{id}(id=${user.id})}"
+                                    class="btn btn-sm border border-primary">Edit</a>
+                            </td>
+                            <td><a th:href="@{/delete/{id}(id=${user.id})}"
+                                class="btn btn-sm border border-primary"
+                                onclick="return confirm('Are you sure to delete?')">Delete</a></td>
+
+                        </tr>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

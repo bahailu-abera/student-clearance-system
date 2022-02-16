@@ -1,0 +1,113 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+  <title>software home page </title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .header {
+      height: 109px;
+      background: #bcd7f836;
+    }
+
+    .header h1 {
+      height: 52px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 36px;
+      line-height: 42px;
+      margin: auto;
+      text-align: center;
+
+      color: #59b2ee;
+    }
+
+    .login-body {
+      width: 45%;
+      box-shadow: 0px 0px 5px black;
+      padding: 2em;
+      margin: 30px auto;
+    }
+
+    .logo {
+      width: 82%;
+      margin: 5px auto;
+    }
+
+    .login-message {
+      font-style: normal;
+      font-weight: 300;
+      font-size: 2em;
+      line-height: 2.5em;
+      text-align: center;
+
+      color: #0B28BE;
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <div class="row">
+        <img th:src="@{/images/AAU.jpg}" class="img-fluid" alt="...">
+      </div>
+    </header>
+
+    <div class="main-content">
+      <div class="row header">
+        <h1> AAU/AAiT Online Clearance System</h1>
+      </div>
+    </div>
+
+    <div class="row login-body">
+      <div class="row logo">
+        <img th:src="@{/images/logo.png}" class="img-fluid" alt="logo">
+      </div>
+
+      <div class="row">
+        <h1 class="login-message">Login into your Account</h1>
+      </div>
+
+      <div class="row">
+
+        <form class="signin_con d-grid gap-2 rounded-3 p-3" method="POST" th:action="@{/login}">
+          <div class="mb-2">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-control form-control-md" type="text" id="username" name="username" />
+          </div>
+          <div class="mb-2">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-control form-control-md" type="password" id="password" name="password" />
+          </div>
+          <div th:if="${param.error}" style="color: red; font-size: 20px;">
+            <p><span>!</span> Invalid username or password.</p>
+          </div>
+          <div th:if="${param.logout}">
+            You have been logged out.
+          </div>
+
+          <button type="submit" class="btn btn-primary">Sign In</button>
+        </form>
+
+      </div>
+
+
+    </div>
+  </div>
+
+</body>
+
+</html>
